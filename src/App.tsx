@@ -1,15 +1,32 @@
-import React from "react";
+import { useRef, useState } from "react";
 import "./App.css";
 
-function App() {
-  return (
-    <div className="App">
-      <div>
-        <input placeholder="type name" />
-        <button>Add Person</button>
+import Graph from "./graph";
 
-        <input placeholder="type new relationship" />
-        <button>Add new relationship</button>
+function App() {
+  const peopleGraph = useRef(new Graph());
+  const [peopleList, setPeopleList] = useState<string[]>([]);
+
+  let result = peopleGraph.current.shortestPathBfs("surbhi", "potato");
+
+  console.log(peopleGraph.current, "result :", result);
+
+  return (
+    <div className="App ">
+      <div className="">
+        {/* <AddPeople
+          peopleGraph={peopleGraph.current}
+          setPeopleList={setPeopleList}
+        />
+        <AddRelation
+          peopleGraph={peopleGraph.current}
+          peopleList={peopleList}
+        />
+        <AddNewRelation />
+        <ConnectionFind
+          peopleGraph={peopleGraph.current}
+          peopleList={peopleList}
+        /> */}
       </div>
     </div>
   );
