@@ -38,7 +38,7 @@ class Graph {
 
     visited.set(start, true);
 
-    if (start === target) return [];
+    if (start === target) return [start, start];
 
     while (queue.length > 0) {
       current = queue.shift() as string;

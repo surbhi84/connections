@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./App.css";
 import { AddRelation } from "./components/AddRelation";
 import { AddPeople } from "./components/AddPeople";
@@ -9,23 +9,26 @@ import Graph from "./graph";
 function App() {
   const peopleGraph = useRef(new Graph());
   const [peopleList, setPeopleList] = useState<string[]>([]);
+  peopleGraph.current.addVertex("surbhi");
+  peopleGraph.current.addVertex("shivam");
+  peopleGraph.current.addVertex("bubu");
+  peopleGraph.current.addVertex("satyam");
+  peopleGraph.current.addVertex("peetal");
+  peopleGraph.current.addVertex("potato");
 
-  // peopleGraph.addVertex("surbhi");
-  // peopleGraph.addVertex("shivam");
-  // peopleGraph.addVertex("bubu");
-  // peopleGraph.addVertex("satyam");
-  // peopleGraph.addVertex("peetal");
-  // peopleGraph.addVertex("potato");
+  peopleGraph.current.addEdge("surbhi", "bubu");
+  peopleGraph.current.addEdge("surbhi", "shivam");
+  peopleGraph.current.addEdge("bubu", "satyam");
+  peopleGraph.current.addEdge("satyam", "peetal");
+  peopleGraph.current.addEdge("peetal", "potato");
 
-  // peopleGraph.addEdge("surbhi", "bubu");
-  // peopleGraph.addEdge("surbhi", "shivam");
-  // peopleGraph.addEdge("bubu", "satyam");
-  // peopleGraph.addEdge("satyam", "peetal");
-  // peopleGraph.addEdge("peetal", "potato");
+  useEffect(() => {
+    setPeopleList(peopleGraph.current.getVertexes());
+  }, [peopleGraph]);
 
   return (
     <div className="App flex flex-col gap-20 h-screen">
-      <header className="text-2xl sm:text-3xl font-semibold p-2  bg-gradient-to-r from-cyan-100 to-green-100 fr">
+      <header className="text-2xl sm:text-3xl font-semibold p-2  bg-gradient-to-r from-cyan-100 to-green-100 ">
         <h1 className=" text-cyan-900">Connections</h1>
       </header>
       <AddPeople

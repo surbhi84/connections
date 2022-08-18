@@ -12,12 +12,13 @@ export const AddRelation = ({
   const [person2, setPerson2] = useState("");
 
   function addRelationship(p1: string, p2: string) {
-    peopleGraph.addEdge(p1, p2);
+    if (p1 === p2) alert("Ooops same person is selected in both options!");
+    else peopleGraph.addEdge(p1, p2);
   }
 
   return (
-    <div>
-      <label>
+    <div className="flex flex-row justify-center gap-5">
+      <label className="flex gap-2">
         Select one person
         <select
           name="personOne"
@@ -31,7 +32,8 @@ export const AddRelation = ({
           ))}
         </select>
       </label>
-      <label>
+
+      <label className="flex gap-2">
         Select another person
         <select
           name="personTwo"
@@ -45,7 +47,11 @@ export const AddRelation = ({
           ))}
         </select>
       </label>
-      <button onClick={() => addRelationship(person1, person2)}>
+
+      <button
+        className="px-5 p-1 rounded-sm bg-cyan-100 hover:bg-cyan-50 border hover:bg-gradient-to-r from-cyan-100 to-green-50"
+        onClick={() => addRelationship(person1, person2)}
+      >
         Add relationship as Friends
       </button>
     </div>
