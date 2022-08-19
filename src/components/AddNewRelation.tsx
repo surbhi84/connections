@@ -1,4 +1,3 @@
-import { stringify } from "querystring";
 import { useState } from "react";
 
 export const AddNewRelation = () => {

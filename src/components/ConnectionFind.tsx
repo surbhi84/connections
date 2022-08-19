@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Graph from "../graph";
 
 export const ConnectionFind = ({
@@ -8,9 +8,12 @@ export const ConnectionFind = ({
   peopleGraph: Graph;
   peopleList: string[];
 }) => {
-  const [person1, setPerson1] = useState(peopleList[0]);
-  const [person2, setPerson2] = useState(peopleList[0]);
+  const [person1, setPerson1] = useState("");
+  const [person2, setPerson2] = useState("");
   const [res, setRes] = useState<string[]>();
+
+  const selectPerson1Ref = useRef<HTMLSelectElement>(null);
+  const selectPerson2Ref = useRef<HTMLSelectElement>(null);
 
   function findConnections(person1: string, person2: string) {
     if (person1 === person2)
@@ -19,21 +22,28 @@ export const ConnectionFind = ({
       let resultArray = peopleGraph.shortestPathBfs(person1, person2);
       console.log(resultArray);
       setRes(resultArray);
+      setPerson1("");
+      setPerson2("");
+      if (selectPerson1Ref.current?.options[0])
+        selectPerson1Ref.current.options[0].selected = true;
+      if (selectPerson2Ref.current?.options[0])
+        selectPerson2Ref.current.options[0].selected = true;
     }
   }
 
   return (
     <div className="flex flex-col items-center gap-10">
-      <div className="flex justify-center items-center gap-5">
+      <div className="flex flex-col sm:flex-row justify-center items-center gap-5">
         <label className="flex gap-2   ">
           Select Person One
           <select
+            ref={selectPerson1Ref}
             className="bg-gradient-to-r from-cyan-100 to-green-50"
             name="personOne"
             id="person1"
             onChange={(e) => setPerson1(e.target.value)}
           >
-            {peopleList.map((vertex) => (
+            {["", ...peopleList].map((vertex) => (
               <option key={vertex} value={vertex} className="bg-green-50 ">
                 {vertex}
               </option>
@@ -55,13 +65,18 @@ export const ConnectionFind = ({
         <label className="flex gap-2">
           Select Person Two
           <select
+            ref={selectPerson2Ref}
             className="bg-gradient-to-r from-cyan-100 to-green-50"
             name="personTwo"
             id="person2"
             onChange={(e) => setPerson2(e.target.value)}
           >
-            {peopleList.map((vertex) => (
-              <option key={vertex} value={vertex} className="bg-green-50 ">
+            {["", ...peopleList].map((vertex, index) => (
+              <option
+                key={vertex}
+                value={index !== 0 ? vertex : ""}
+                className="bg-green-50"
+              >
                 {vertex}
               </option>
             ))}
