@@ -30,6 +30,15 @@ class Graph {
     }
   }
 
+  isEdge(source: string, target: string) {
+    let sourceNode = this.adjacencyList.get(source);
+    let targetNode = this.adjacencyList.get(target);
+    if (sourceNode?.friends.has(target) || targetNode?.friends.has(source)) {
+      return true;
+    }
+    return false;
+  }
+
   shortestPathBfs(start: string, target: string, queue: string[] = []) {
     queue = [start];
     let current: string;
