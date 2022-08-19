@@ -9,19 +9,6 @@ function App() {
   const peopleGraph = useRef(new Graph());
   const [peopleList, setPeopleList] = useState<string[]>([]);
 
-  peopleGraph.current.addVertex("surbhi");
-  peopleGraph.current.addVertex("shivam");
-  peopleGraph.current.addVertex("bubu");
-  peopleGraph.current.addVertex("satyam");
-  peopleGraph.current.addVertex("peetal");
-  peopleGraph.current.addVertex("potato");
-
-  peopleGraph.current.addEdge("surbhi", "bubu");
-  peopleGraph.current.addEdge("surbhi", "shivam");
-  peopleGraph.current.addEdge("bubu", "satyam");
-  peopleGraph.current.addEdge("satyam", "peetal");
-  peopleGraph.current.addEdge("peetal", "potato");
-
   return (
     <div className="App flex flex-col gap-14 h-screen">
       <header className="text-2xl sm:text-3xl font-semibold p-2  bg-gradient-to-r from-cyan-100 to-green-100 ">
